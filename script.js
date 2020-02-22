@@ -1,3 +1,22 @@
+let validate = {
+    fullname: function (ev) {
+        let v = this.value;
+        if (v.length == 0) {
+            return;
+        }
+        v = v[v.length - 1].codePointAt(0);
+        if (!((v >= 65 && v <= 90) ||
+            (v >= 97 && v <= 122) ||
+            (v == 32 || v == 39 || v == 45))) {
+            this.value = this.value.slice(0, -1);
+        }
+    }
+};
+let fn = document.querySelectorAll('[name="full-name"]');
+fn[0].addEventListener("input",validate.fullname);
+fn[1].addEventListener("input",validate.fullname);
+
+
 let formSwitches = document.querySelectorAll("[data-form]");
 
 for (let i = 0; i <formSwitches.length ; i++) {
