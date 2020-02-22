@@ -39,6 +39,9 @@ body {
     visibility: hidden;
 }
 
+.inp-invalid {
+    background-color: yellow;
+}
 /*general end*/
 /*header*/
 
