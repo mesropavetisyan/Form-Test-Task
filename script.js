@@ -91,6 +91,24 @@ req.onreadystatechange = function () {
     }
 };
 
+
+
+
+
+let location = document.querySelector(".city-input-icon");
+function getCountry() {
+    let req = new XMLHttpRequest();
+    req.open("GET", 'https://restcountries.eu/rest/v2/all', true);
+    req.send();
+    req.onreadystatechange = function (x) {
+        if (this.readyState == 4 && this.status == 200) {
+            let data = this.responseText;
+            data = JSON.parse(data);
+            setCountry(data)
+        }
+    };
+}
+
 function setCountry(country) {
     let select = document.querySelector("[name='country']");
     for (let i = 0; i < country.length; i++) {
@@ -102,7 +120,23 @@ function setCountry(country) {
     let billingSelect = document.querySelector("#country-box-billing");
     billingSelect.parentElement.replaceChild(select.cloneNode(true), billingSelect);
 }
-
-
-
-
+function setCity(data) {
+    let city = document.querySelector('[name="city"]');
+    city.value = data.results[0].components.city;
+}
+location.addEventListener('click', function () {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (res) {
+            let req = new XMLHttpRequest();
+            req.open("GET", "https://api.opencagedata.com/geocode/v1/json?q=" + res.coords.latitude + "+" + res.coords.longitude + "&key=64297b985f9e40e9a107d283ad03d5bc", true);
+            req.send();
+            req.onreadystatechange = function (x) {
+                if (this.readyState == 4 && this.status == 200) {
+                    let data = this.responseText;
+                    data = JSON.parse(data);
+                    setCity(data);
+                }
+            };
+        })
+    }
+});
