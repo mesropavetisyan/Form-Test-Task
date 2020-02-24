@@ -57,7 +57,7 @@ body {
     visibility: hidden;
     transition: all 0.5s;
 }
-.show {
+.opc {
     opacity: 1;
     visibility: visible;
 }
@@ -131,7 +131,6 @@ header:after {
 }
 
 .input-field {
-    color: #6B6B6B;
     border: 1px solid #DEDCDC;
     padding: 11px 15px;
     border-radius: 5px;
@@ -187,16 +186,13 @@ header:after {
 .others-input {
     width: 180px;
     box-sizing: border-box;
-    color: #6B6B6B;
     border: 1px solid #DEDCDC;
     padding: 11px 15px;
     border-radius: 5px;
     font-size: 16px;
 }
-
 .input-zip {
     width: 120px;
-    color: #6B6B6B;
     border: 1px solid #DEDCDC;
     padding: 11px 15px;
     border-radius: 5px;
@@ -350,16 +346,6 @@ header:after {
 .billing {
 }
 
-.input-field {
-    color: #6B6B6B;
-    border: 1px solid #DEDCDC;
-    padding: 11px 15px;
-    border-radius: 5px;
-    width: 320px;
-    box-sizing: border-box;
-    font-size: 16px;
-}
-
 .shipping-info-text-content {
     margin: 23px 0 19px;
     font-size: 26px;
@@ -406,27 +392,6 @@ header:after {
     width: 320px;
     font-size: 16px;
 }
-
-
-.others-input {
-    width: 180px;
-    box-sizing: border-box;
-    color: #6B6B6B;
-    border: 1px solid #DEDCDC;
-    padding: 11px 15px;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.input-zip {
-    width: 120px;
-    color: #6B6B6B;
-    border: 1px solid #DEDCDC;
-    padding: 11px 15px;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
 .country-zip {
     display: flex;
     justify-content: space-between;

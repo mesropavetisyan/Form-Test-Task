@@ -10,32 +10,44 @@ let validate = {
             (v == 32 || v == 39 || v == 45))) {
             this.value = this.value.slice(0, -1);
         }
-    }
+    },
+    zip: function (ev) {
+        let v = this.value;
+        if (v.length == 0) {
+            return;
+        }
+        v = v[v.length - 1].codePointAt(0);
+        if (!(v >= 48 && v <= 57) || (this.value.length > 4)) {
+            this.value = this.value.slice(0, -1);
+        }
+    },
 };
 let fn = document.querySelectorAll('[name="full-name"]');
-fn[0].addEventListener("input",validate.fullname);
-fn[1].addEventListener("input",validate.fullname);
+fn[0].addEventListener("input", validate.fullname);
+fn[1].addEventListener("input", validate.fullname);
 
+let zipInp = document.querySelector('[name="zip"]');
+zipInp.addEventListener("input", validate.zip);
 
 let formSwitches = document.querySelectorAll("[data-form]");
 
-for (let i = 0; i <formSwitches.length ; i++) {
+for (let i = 0; i < formSwitches.length; i++) {
     formSwitches[i].addEventListener("click", switchForm)
 }
 
-function switchForm(ev,f) {
-    let forms= document.querySelectorAll(".forms-inputs>div");
+function switchForm(ev, f) {
+    let forms = document.querySelectorAll(".forms-inputs>div");
     for (let i = 0; i < forms.length; i++) {
         forms[i].classList.add("hidden");
     }
     let form = null;
-    if(f){
+    if (f) {
         form = f;
-    }else{
-        let formClass=ev.target.getAttribute("data-form");
+    } else {
+        let formClass = ev.target.getAttribute("data-form");
         form = document.querySelector("." + formClass);
     }
-    if(form){
+    if (form) {
         form.classList.remove("hidden");
     }
 }
@@ -45,13 +57,13 @@ btn.addEventListener("click", function () {
     let form = this.closest(".form-desc");
     let fillInp = form.querySelectorAll(".inp-fill");
     for (let i = 0; i < fillInp.length; i++) {
-        if(fillInp[i].value.length == "") {
+        if (fillInp[i].value.length == "") {
             fillInp[i].classList.add(".no-fill")
-        }else {
+        } else {
             fillInp[i].classList.remove(".no-fill");
             let messageInvalid = fillInp[i].closest(".invalid-field").querySelector("invalid-message");
-            if(messageInvalid) {
-                messageInvalid.classList.remove("show");
+            if (messageInvalid) {
+                messageInvalid.classList.remove("opc");
             }
         }
     }
@@ -60,13 +72,36 @@ btn.addEventListener("click", function () {
         invalid.focus();
         let messageInvalid = invalid.closest('.invalid-field').querySelector('.invalid-message');
         if (messageInvalid) {
-            messageInvalid.classList.add('show');
+            messageInvalid.classList.add('opc');
         }
     } else {
         switchForm(null, form.nextElementSibling);
     }
 });
 
+
+let req = new XMLHttpRequest();
+req.open("GET", "https://restcountries.eu/rest/v2/all", true);
+req.send();
+req.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        let data = this.responseText;
+        data = JSON.parse(data);
+        setCountry(data);
+    }
+};
+
+function setCountry(country) {
+    let select = document.querySelector("[name='country']");
+    for (let i = 0; i < country.length; i++) {
+        let option = document.createElement("option");
+        option.innerText = country[i].name;
+        option.value = country[i].name;
+        select.append(option);
+    }
+    let billingSelect = document.querySelector("#country-box-billing");
+    billingSelect.parentElement.replaceChild(select.cloneNode(true), billingSelect);
+}
 
 
 
