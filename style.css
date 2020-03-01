@@ -190,11 +190,12 @@ header:after {
     padding: 11px 15px;
     border-radius: 5px;
     font-size: 16px;
+    color: #777879;
 }
 .input-zip {
     width: 120px;
     border: 1px solid #DEDCDC;
-    padding: 11px 15px;
+    padding: 13px 15px;
     border-radius: 5px;
     box-sizing: border-box;
 }
@@ -599,7 +600,7 @@ header:after {
 }
 
 select#country-box {
-    -webkit-appearance: none;
+    /* -webkit-appearance: none; */
 }
 
 .select-icon {
